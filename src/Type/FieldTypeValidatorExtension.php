@@ -76,8 +76,9 @@ class FieldTypeValidatorExtension extends AbstractFieldTypeExtension
             )
         );
 
-        $validator = $this->validator;
-        $constraintsNormalizer = function (Options $options, $constraints) use ($validator) {
+        $self = $this;
+
+        $constraintsNormalizer = function (Options $options, $constraints) use ($self) {
             if (null === $constraints) {
                 return array();
             }
@@ -86,24 +87,11 @@ class FieldTypeValidatorExtension extends AbstractFieldTypeExtension
                 $constraints = array($constraints);
             }
 
-            if (null === $options['model_class'] || null === $options['model_property'] || count($constraints) > 0) {
+            if (count($constraints) > 0) {
                 return $constraints;
             }
 
-            // Its possible getting of the Metadata gives an error,
-            // but that means the model class was invalid already.
-            // Getting a property without metadata will give an empty array
-
-            /** @var ClassMetadata $classMetadata */
-            $classMetadata = $validator->getMetadataFor($options['model_class']);
-            $propertyMetadata = $classMetadata->getPropertyMetadata($options['model_property']);
-            $constraints = array();
-
-            foreach ($propertyMetadata as $metadata) {
-                $constraints += $metadata->getConstraints();
-            }
-
-            return $constraints;
+            return $self->loadConstraints($options);
         };
 
         // BC layer for Symfony 2.7 and 3.0
@@ -128,5 +116,30 @@ class FieldTypeValidatorExtension extends AbstractFieldTypeExtension
             $optionsResolver->setAllowedTypes('validation_groups', array('array'));
             $optionsResolver->setNormalizer('constraints', $constraintsNormalizer);
         }
+    }
+
+    /**
+     * @internal
+     */
+    public function loadConstraints(Options $options)
+    {
+        if (null === $options['model_class'] || null === $options['model_property']) {
+            return array();
+        }
+
+        // Its possible getting of the Metadata gives an error,
+        // but that means the model class was invalid already.
+        // Getting a property without metadata will give an empty array
+
+        /** @var ClassMetadata $classMetadata */
+        $classMetadata = $this->validator->getMetadataFor($options['model_class']);
+        $propertyMetadata = $classMetadata->getPropertyMetadata($options['model_property']);
+        $constraints = array();
+
+        foreach ($propertyMetadata as $metadata) {
+            $constraints += $metadata->getConstraints();
+        }
+
+        return $constraints;
     }
 }
