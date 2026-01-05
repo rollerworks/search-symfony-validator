@@ -55,12 +55,10 @@ final class InputValidatorTest extends SearchIntegrationTestCase
     protected function getFieldSet(bool $build = true)
     {
         $fieldSet = $this->getFactory()->createFieldSetBuilder();
-        $fieldSet->add('id', IntegerType::class, ['constraints' => new Assert\Range(['min' => 5])]);
+        $fieldSet->add('id', IntegerType::class, ['constraints' => new Assert\Range(min: 5)]);
         $fieldSet->add('date', DateType::class, [
             'constraints' => [
-                new Assert\Range(
-                    ['min' => new \DateTimeImmutable('2014-12-20 14:35:05 UTC')]
-                ),
+                new Assert\Range(min: new \DateTimeImmutable('2014-12-20 14:35:05 UTC')),
             ],
         ]);
         $fieldSet->add('type', TextType::class);
