@@ -33,7 +33,6 @@ final class InputValidator implements Validator
 {
     private ValidatorInterface $validator;
 
-    private FieldConfig $field;
     private ErrorList $errorList;
     /** @var Constraint[]|null */
     private ?array $constraints = [];
@@ -47,9 +46,7 @@ final class InputValidator implements Validator
 
     public function initializeContext(FieldConfig $field, ErrorList $errorList): void
     {
-        $this->field = $field;
         $this->errorList = $errorList;
-
         $this->constraints = $field->getOption('constraints');
         $this->patternMatchConstraints = $field->getOption('pattern_match_constraints');
     }
