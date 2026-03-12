@@ -25,18 +25,15 @@ use Rollerworks\Component\Search\Value\PatternMatch;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @internal
  */
 final class InputValidatorTest extends SearchIntegrationTestCase
 {
-    private $sfValidator;
-
-    /**
-     * @var InputValidator
-     */
-    private $validator;
+    private ValidatorInterface $sfValidator;
+    private InputValidator $validator;
 
     protected function setUp(): void
     {

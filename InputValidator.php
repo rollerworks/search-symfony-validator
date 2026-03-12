@@ -31,17 +31,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 final class InputValidator implements Validator
 {
-    private ValidatorInterface $validator;
-
     private ErrorList $errorList;
+
     /** @var Constraint[]|null */
     private ?array $constraints = [];
-    /** @var Constraint[]|null */
-    private ?array $patternMatchConstraints;
 
-    public function __construct(ValidatorInterface $validator)
-    {
-        $this->validator = $validator;
+    /** @var Constraint[]|null */
+    private ?array $patternMatchConstraints = null;
+
+    public function __construct(
+        private readonly ValidatorInterface $validator,
+    ) {
     }
 
     public function initializeContext(FieldConfig $field, ErrorList $errorList): void
