@@ -68,7 +68,9 @@ final class InputValidatorTest extends SearchIntegrationTestCase
         return [new ValidatorExtension()];
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_works_without_constraints(): void
     {
         $fieldSet = $this->getFactory()->createFieldSetBuilder()
@@ -99,7 +101,9 @@ final class InputValidatorTest extends SearchIntegrationTestCase
         self::assertEmpty($errorList3);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_validates_fields_with_constraints(): void
     {
         $fieldSet = $this->getFieldSet();
@@ -143,7 +147,9 @@ final class InputValidatorTest extends SearchIntegrationTestCase
         self::assertEmpty($errorList3);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_validates_matchers(): void
     {
         $fieldSet = $this->getFieldSet(false);
