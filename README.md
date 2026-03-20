@@ -3,14 +3,13 @@ RollerworksSearch Symfony Validator
 
 This package provides the Symfony Validator extension for [RollerworksSearch][1].
 
-If you'd like to contribute to this project, please see the [contributing guide lines][2]
-for more information.
+If you'd like to contribute to this project, please go the
+main [RollerworksSearch][1] repository and read the [Contributing][2] section.
 
-**Note:**
-
+> [!NOTE
 > This validation is meant to be used for business rules like a minimum/maximum
-> value range or disallowing specific patterns. The data transformers already ensure
-> the value is properly transformed.
+> value range, or disallowing specific patterns. The data transformers already
+> ensure the value is properly transformed.
 
 Installation
 ------------
@@ -22,14 +21,12 @@ package in your composer.json and update your dependencies.
 $ composer require rollerworks/search-symfony-validator
 ```
 
-Symfony framework integration
+Symfony Framework Integration
 -----------------------------
 
-**Note:** The Symfony integration bundle for RollerworksSearch already enables
-the Symfony validator service. You don't need to do anything but configure your
-field's constraints.
-
-This package provides the Symfony integration bundle for [RollerworksSearch][1].
+The [Symfony bundle][3] for RollerworksSearch already enables  the Symfony
+validator service. You don't need to do anything but configure your 
+search field's constraints.
 
 License
 -------
@@ -39,3 +36,4 @@ with this source code in the file [LICENSE](LICENSE).
 
 [1]: https://github.com/rollerworks/RollerworksSearch
 [2]: https://github.com/rollerworks/RollerworksSearch#contributing
+[3]: https://github.com/rollersearch/search-bundle
